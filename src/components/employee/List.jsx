@@ -1,117 +1,60 @@
-// import React from 'react'
-// import { Link } from 'react-router-dom'
-
-// const List = () => {
-//   return (
-//     <div className='p-6'>
-//         <div className='text-center'>
-//         <h3 className='text-2xl font-bold'>Manage Employees</h3>
-//         </div>
-//         <div className='flex justify-between items-center'>
-//             <input type="text" placeholder='Search by employee name...' className='px-4 py-0.5 border rounded-md'/>
-//             <Link to="/admin-dashboard/add-employee" className='px-4 py-1 bg-cyan-600 rounded-lg text-white'>Add New Employee</Link>
-//         </div>
-
-//         {/* temporary */}
-//         <div className='p-5'>
-//         <table className='w-full text-sm text-left text-gray-500'>
-//         <thead className='text-xs text-gray-700 uppercase bg-gray-50 border border-gray-200'>
-//           <tr>
-//             <th className='px-6 py-3'>Sl No</th>
-//             <th className='px-6 py-3'>Image</th>
-//             <th className='px-6 py-3'>Name</th>
-//             <th className='px-6 py-3'>DOB</th>
-//             <th className='px-6 py-3'>Department</th>
-//             <th className='px-6 py-3'>Action</th>
-//           </tr>
-//         </thead>
-
-//       <tbody>
-//         <tr className='bg-white border-b dark:bg-yellow-50'>
-//           <td className='px-6 py-3'>1</td>
-//           <td className='px-6 py-3'>
-//             <img src="https://media.istockphoto.com/id/2096871292/vector/female-user-image-profile-picture-female-photo-set-profile-picture-illustration.jpg?s=170667a&w=0&k=20&c=j2UVknZB1hrn2Lw6rK3RUhcTPY2VL5HKwZcO540GCLs=" style={{width:'50px'}} alt="" />
-//           </td>
-//           <td className='px-6 py-3'>Luna</td>
-//           <td className='px-6 py-3'>07-11-2001</td>
-//           <td className='px-6 py-3'>IT</td>
-//           <td className='px-6 py-3'>
-//             <button className='p-1 rounded-md me-2 text-white bg-blue-400 cursor-pointer'>View</button>
-//             <button className='p-1 rounded-md me-2 text-white bg-green-400 cursor-pointer'>Edit</button>
-//             <button className='p-1 rounded-md me-2 text-white bg-yellow-400 cursor-pointer'>Salary</button>
-//             <button className='p-1 rounded-md me-2 text-white bg-red-400 cursor-pointer'>Leave</button>
-//           </td>
-//         </tr>
-//         <tr className='bg-white border-b dark:bg-yellow-50'>
-//           <td className='px-6 py-3'>2</td>
-//           <td className='px-6 py-3'>
-//             <img src="https://media.istockphoto.com/id/2096871292/vector/female-user-image-profile-picture-female-photo-set-profile-picture-illustration.jpg?s=170667a&w=0&k=20&c=j2UVknZB1hrn2Lw6rK3RUhcTPY2VL5HKwZcO540GCLs=" style={{width:'50px'}} alt="" />
-//           </td>
-//           <td className='px-6 py-3'>Luna</td>
-//           <td className='px-6 py-3'>07-11-2001</td>
-//           <td className='px-6 py-3'>IT</td>
-//           <td className='px-6 py-3'>
-//             <button className='p-1 rounded-md me-2 text-white bg-blue-400 cursor-pointer'>View</button>
-//             <button className='p-1 rounded-md me-2 text-white bg-green-400 cursor-pointer'>Edit</button>
-//             <button className='p-1 rounded-md me-2 text-white bg-yellow-400 cursor-pointer'>Salary</button>
-//             <button className='p-1 rounded-md me-2 text-white bg-red-400 cursor-pointer'>Leave</button>
-//           </td>
-//         </tr>
-//         <tr className='bg-white border-b dark:bg-yellow-50'>
-//           <td className='px-6 py-3'>3</td>
-//           <td className='px-6 py-3'>
-//             <img src="https://media.istockphoto.com/id/2096871292/vector/female-user-image-profile-picture-female-photo-set-profile-picture-illustration.jpg?s=170667a&w=0&k=20&c=j2UVknZB1hrn2Lw6rK3RUhcTPY2VL5HKwZcO540GCLs=" style={{width:'50px'}} alt="" />
-//           </td>
-//           <td className='px-6 py-3'>Luna</td>
-//           <td className='px-6 py-3'>07-11-2001</td>
-//           <td className='px-6 py-3'>IT</td>
-//           <td className='px-6 py-3'>
-//             <button className='p-1 rounded-md me-2 text-white bg-blue-400 cursor-pointer'>View</button>
-//             <button className='p-1 rounded-md me-2 text-white bg-green-400 cursor-pointer'>Edit</button>
-//             <button className='p-1 rounded-md me-2 text-white bg-yellow-400 cursor-pointer'>Salary</button>
-//             <button className='p-1 rounded-md me-2 text-white bg-red-400 cursor-pointer'>Leave</button>
-//           </td>
-//         </tr>
-
-//       </tbody>
-//     </table>
-//         </div>
-//     </div>
-    
-    
-
-//   )
-// }
-
-// export default List
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import api from '../../utils/api';
 
 const List = () => {
-  const employees = [
-    {
-      id: 1,
-      name: 'Luna',
-      dob: '07-11-2001',
-      department: 'IT',
-      image: 'https://media.istockphoto.com/id/2096871292/vector/female-user-image-profile-picture-female-photo-set-profile-picture-illustration.jpg?s=170667a&w=0&k=20&c=j2UVknZB1hrn2Lw6rK3RUhcTPY2VL5HKwZcO540GCLs='
-    },
-    {
-      id: 2,
-      name: 'Nila',
-      dob: '15-09-1999',
-      department: 'Audit',
-      image: 'https://media.istockphoto.com/id/2096871292/vector/female-user-image-profile-picture-female-photo-set-profile-picture-illustration.jpg?s=170667a&w=0&k=20&c=j2UVknZB1hrn2Lw6rK3RUhcTPY2VL5HKwZcO540GCLs='
-    },
-    {
-      id: 2,
-      name: 'Mia',
-      dob: '13-12-1997',
-      department: 'HR',
-      image: 'https://media.istockphoto.com/id/2096871292/vector/female-user-image-profile-picture-female-photo-set-profile-picture-illustration.jpg?s=170667a&w=0&k=20&c=j2UVknZB1hrn2Lw6rK3RUhcTPY2VL5HKwZcO540GCLs='
-    }
-  ];
+
+  const [employees, setEmployees] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedEmployee, setSelectedEmployee] = useState(null); 
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const res = await api.get("/employee");
+        setEmployees(res.data);
+      } catch (error) {
+        console.error("Error fetching employees:", error);
+      }
+    };
+
+    fetchEmployees();
+  }, []);
+
+    // Function to remove an employee
+    const handleRemoveEmployee = async (employeeId) => {
+      if (!window.confirm("Are you sure you want to delete this employee?")) {
+        return;
+      }
+  
+      try {
+        await api.delete(`/employee/${employeeId}`);
+        setEmployees(employees.filter(emp => emp._id !== employeeId));
+        alert("Employee removed successfully!");
+      } catch (error) {
+        console.error("Error deleting employee:", error);
+        alert("Failed to remove employee.");
+      }
+    };
+
+
+  // Function to filter employees based on search term
+  const filteredEmployees = employees.filter(emp =>
+    emp.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Handle view button click
+  const handleViewEmployee = (employee) => {
+    setSelectedEmployee(employee);
+    setIsModalOpen(true);
+  };
+
+  // Handle close modal
+  const handleCloseModal = () => {
+    setSelectedEmployee(null);
+    setIsModalOpen(false);
+  };
 
   return (
     <div className='p-6'>
@@ -119,28 +62,49 @@ const List = () => {
         <h3 className='text-2xl font-bold'>Manage Employees</h3>
       </div>
       <div className='flex justify-between items-center mb-4'>
-        <input type='text' placeholder='Search employees...' className='px-4 py-2 border rounded-md w-2/3' />
+        <input type='text' placeholder='Search employees...' className='px-4 py-2 border rounded-md w-2/3' value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}/>
         <Link to='/admin-dashboard/add-employee' className='px-4 py-2 bg-cyan-600 rounded-lg text-white'>
           Add New Employee
         </Link>
       </div>
 
       <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-        {employees.map(emp => (
+        {filteredEmployees.map(emp => (
           <div key={emp.id} className='bg-white shadow-lg p-4 rounded-lg text-center'>
-            <img src={emp.image} alt={emp.name} className='w-24 h-24 rounded-full mx-auto mb-3' />
+            <img src='https://img.freepik.com/premium-psd/user-icematte_161669-211.jpg' alt={emp.name} className='w-24 h-24 rounded-full mx-auto mb-3' />
             <h4 className='text-lg font-semibold'>{emp.name}</h4>
             <p className='text-sm text-gray-600'>DOB: {emp.dob}</p>
             <p className='text-sm text-gray-600'>Department: {emp.department}</p>
             <div className='mt-3 space-x-2'>
-              <button className='p-2 rounded-md text-white bg-blue-500'><i className='fa-solid fa-eye'></i>View</button>
-              <button className='p-2 rounded-md text-white bg-green-500'><i className='fa-solid fa-pen'></i>Edit</button>
-              <button className='p-2 rounded-md text-white bg-yellow-500'><i className='fa-solid fa-dollar-sign'>Salary</i></button>
-              <button className='p-2 rounded-md text-white bg-red-500'><i className='fa-solid fa-plane'></i>Leave</button>
+              <button onClick={() => handleViewEmployee(emp)} className='p-2 rounded-md text-white bg-green-500'><i className='fa-solid fa-eye'></i>View</button>
+              <button onClick={() => handleRemoveEmployee(emp._id)} className='p-2 rounded-md text-white bg-red-500'><i className='fa-solid fa-trash'></i>Remove</button>
             </div>
           </div>
         ))}
       </div>
+      {/* Modal for Employee Details */}
+      {isModalOpen && selectedEmployee && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-xl font-bold mb-4">Employee Details</h2>
+            <p><strong>Name:</strong> {selectedEmployee.name}</p>
+            <p><strong>Employee ID:</strong> {selectedEmployee.employeeId}</p>
+            <p><strong>Department:</strong> {selectedEmployee.department}</p>
+            <p><strong>Designation:</strong> {selectedEmployee.designation}</p>
+            <p><strong>DOB:</strong> {selectedEmployee.dob}</p>
+            <p><strong>Email:</strong> {selectedEmployee.email}</p>
+            <p><strong>Gender:</strong> {selectedEmployee.gender}</p>
+            <p><strong>Marital Status:</strong> {selectedEmployee.maritalStatus}</p>
+            <p><strong>Salary:</strong> {selectedEmployee.salary}</p>
+
+            <div className="flex justify-end mt-4">
+              <button onClick={handleCloseModal} className="bg-gray-400 text-white px-4 py-2 rounded">Close</button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

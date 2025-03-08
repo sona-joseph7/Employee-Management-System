@@ -1,29 +1,17 @@
-// import React from 'react'
- 
-// const Summary = () => {
-    
-//   return (
-//     <div className='p-6'>
-//     <div className='rounded flex bg-white'>
-//     <div className={`text-3xl flex justify-center items-center bg-cyan-600 text-white px-4`}>
-//         {/*icon  */}
-//         <i className="fa-solid fa-user"></i>
-//     </div>
-//     <div className='pl-4 py-1'>
-//         <p className='text-lg font-semibold'>Welcome,</p>
-//         <p className='text-xl font-bold'>EmployeeName</p>
-//     </div>
-// </div>
-// </div>
-//   )
-// }
 
-// export default Summary
-
-
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Summary = () => {
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    // Retrieve user data from localStorage
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user && user.name) {
+      setUserName(user.name);
+    }
+  }, []);
+  
   return (
     <div className='p-6'>
 
@@ -34,7 +22,7 @@ const Summary = () => {
         </div>
         <div className='pl-4'>
           <p className='text-lg font-semibold text-gray-700'>Welcome,</p>
-          <p className='text-2xl font-bold text-gray-900'>Employee Name</p>
+          <p className='text-2xl font-bold text-gray-900'>{userName}</p>
         </div>
       </div>
 

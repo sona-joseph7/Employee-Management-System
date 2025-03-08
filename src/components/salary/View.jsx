@@ -1,59 +1,57 @@
-import React from 'react'
+
+import React, { useEffect, useState } from 'react';
+import api from "../../utils/api";
 
 const View = () => {
+  const [salaries, setSalaries] = useState([]);
+
+  useEffect(() => {
+    const fetchSalaries = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (!user) return;
+
+      console.log(`Querying salary for Employee ID: ${user.employeeId}`);
+
+      try {
+        const response = await api.get(`/salary/${user.employeeId}`);
+        console.log("Fetched Salaries:", response.data);
+        setSalaries(response.data);
+      } catch (error) {
+        console.error("Error fetching salary history:", error);
+      }
+    };
+    fetchSalaries();
+  }, []);
+
   return (
     <div className='overflow-x-auto p-5'>
       <div className='text-center'>
-        <h2 className='text-2xl font-bold'>Salary History</h2>
+        <h2 className='text-2xl font-bold mb-5'>Salary History</h2>
       </div>
-      <div className='flex justify-end my-3'>
-        <input type="text" placeholder='Search by employee ID' className='border px-2 rounded-md py-0.5 border-gray-300'/>
-      </div>
+
       <table className='w-full text-sm text-left text-gray-500'>
-        <thead className='text-xs text-gray-700 uppercase bg-gray-50 border border-gray-200'>
+        <thead className='text-xs text-gray-700 uppercase bg-green-300 border border-gray-200'>
           <tr>
             <th className='px-6 py-3'>Sl No</th>
-            <th className='px-6 py-3'>Emp ID</th>
-            <th className='px-6 py-3'>Salary</th>
-            <th className='px-6 py-3'>Allowance</th>
-            <th className='px-6 py-3'>Deduction</th>
-            <th className='px-6 py-3'>Total</th>
+            <th className='px-6 py-3'>Basic Salary</th>
+
             <th className='px-6 py-3'>Pay Date</th>
           </tr>
         </thead>
 
-      <tbody>
-        <tr className='bg-white border-b dark:bg-yellow-50'>
-          <td className='px-6 py-3'>1</td>
-          <td className='px-6 py-3'>456</td>
-          <td className='px-6 py-3'>40000</td>
-          <td className='px-6 py-3'>2000</td>
-          <td className='px-6 py-3'>5000</td>
-          <td className='px-6 py-3'>47000</td>
-          <td className='px-6 py-3'>17-02-2025</td>
-        </tr>
-        <tr className='bg-white border-b dark:bg-yellow-50'>
-          <td className='px-6 py-3'>2</td>
-          <td className='px-6 py-3'>456</td>
-          <td className='px-6 py-3'>40000</td>
-          <td className='px-6 py-3'>2000</td>
-          <td className='px-6 py-3'>5000</td>
-          <td className='px-6 py-3'>47000</td>
-          <td className='px-6 py-3'>17-02-2025</td>
-        </tr>
-        <tr className='bg-white border-b dark:bg-yellow-50'>
-          <td className='px-6 py-3'>3</td>
-          <td className='px-6 py-3'>456</td>
-          <td className='px-6 py-3'>40000</td>
-          <td className='px-6 py-3'>2000</td>
-          <td className='px-6 py-3'>5000</td>
-          <td className='px-6 py-3'>47000</td>
-          <td className='px-6 py-3'>17-02-2025</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-  )
-}
+        <tbody>
+          {salaries.map((salary, index) => (
+            <tr key={salary._id} className='bg-white border-b'>
+              <td className='px-6 py-3'>{index + 1}</td>
+              <td className='px-6 py-3'>{salary.basicSalary}</td>
 
-export default View
+              <td className='px-6 py-3'>{new Date(salary.payDate).toLocaleDateString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default View;
