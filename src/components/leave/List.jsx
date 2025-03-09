@@ -12,8 +12,9 @@ const List = () => {
 
       try {
         const response = await api.get(`/employee/leaves/${user.employeeId}`);
-        const data = await response.json();
-        setLeaves(data);
+        // const data = await response.json();
+        // setLeaves(data);
+        setLeaves(response.data);
       } catch (error) {
         console.error("Error fetching leaves:", error);
       }
